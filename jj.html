@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1 align="centre">To-Do List</h1>
+    <input type="text" id="taskInput" align="center">
+    <br>
+    <button type="button" id="addTask" onclick="lister()" align="center">Enter</button>
+    <div id="taskList"></div>
+    <script>
+        let i = 0;
+        let taskList = [];
+        function lister() {
+            i++;
+            x = document.getElementById("taskInput").value;
+            taskList.push('*' + " " + x);
+
+            displayTasks();
+            localStorage.setItem("todolist", JSON.stringify(taskList));
+        }
+
+        function displayTasks() {
+            let list = "List is:<br>";
+            for (const task of taskList) {
+                list += "<br>" + task;
+            }
+            document.getElementById("taskList").innerHTML = list;
+        }
+
+        window.onload = function () {
+            let storedTaskList = JSON.parse(localStorage.getItem("todolist"));
+            if (storedTaskList) {
+                taskList = storedTaskList;
+                displayTasks();
+            }
+        }
+    </script>
+</body>
+</html>
